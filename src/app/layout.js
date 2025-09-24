@@ -20,6 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
+      style={{background: "linear-gradient(-180deg, #778FFF 0%, #FFFFFF 100%);"}}
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
