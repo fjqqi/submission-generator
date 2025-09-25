@@ -14,7 +14,7 @@ export const TextInput = ({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className="font-apple mt-1 text-3xl block w-full border-0 border-b-2 border-gray-300 bg-transparent focus:border-b-2 focus:border-gray-300 focus:outline-none focus:ring-0"
+      className="font-apple mt-1 text-3xl block w-full border-0 border-b border-gray-100 bg-transparent focus:border-b-2 focus:border-gray-300 focus:outline-none focus:ring-0"
     />
   );
 };

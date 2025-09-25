@@ -7,30 +7,24 @@ export default function Home() {
   const [script, setScript] = useState("");
   const [scriptLink, setScriptLink] = useState("");
   const [designLink, setDesignLink] = useState("");
-  const [output, setOutput] = useState("");
   const [copied, setCopied] = useState(false);
 
   const DISCORD_CHANNEL_URL =
     "https://discord.com/channels/1395936375357968495/1395936839214436535";
 
-  const handleGenerate = () => {
-    const generatedText = `Copywriting: ${script}
+  const message = `Copywriting: ${script}
 ${scriptLink}
 Link Desain:
 ${designLink}`;
 
-    setOutput(generatedText);
-    setCopied(false);
-  };
-
   const handleCopyAndOpen = async () => {
-    const message = `Copywriting: ${script}\n${scriptLink}\nLink Desain:\n${designLink}`;
     try {
       await navigator.clipboard.writeText(message);
       setCopied(true);
-
-      // Open Discord channel in new tab
       window.open(DISCORD_CHANNEL_URL, "_blank");
+
+      // reset copied after 2s
+      setTimeout(() => setCopied(false), 2000);
     } catch (err) {
       console.error("Failed to copy text: ", err);
     }
@@ -68,22 +62,13 @@ ${designLink}`;
                 value={designLink}
                 onChange={(e) => setDesignLink(e.target.value)}
               />
-
-              <button
-                onClick={handleGenerate}
-                className="font-apple w-fit mt-2 text-4xl hover:-translate-y-1 cursor-pointer duration-100  px-5 rounded-full border border-black"
-                style={{
-                  background:
-                    "linear-gradient(-178.743deg, #FFFFFF 0%, #B2E268 100%)",
-                }}
-              >
-                Generate
-              </button>
             </div>
 
-            {output && (
-              <div className="mt-4 text-sm p-3 bg-gray-100 rounded-md text-black whitespace-pre-line">
-                {output}
+            {script || scriptLink || designLink ? (
+              <div className="mt-4 text-sm py-3 w-fit  whitespace-pre-line">
+                <div className="border-b-white border-b-2  text-gray-700 pt-2 backdrop-blur-2xl  bg-white/20 px-2 pb-2">
+                  {message}
+                </div>
 
                 <button
                   onClick={handleCopyAndOpen}
@@ -93,9 +78,11 @@ ${designLink}`;
                       "linear-gradient(-178.743deg, #FFFFFF 0%, #B2E268 100%)",
                   }}
                 >
-                  {copied ? "Copied!" : "Copy and open discord"}
+                  {copied ? "Copied!" : "Copy and open Discord"}
                 </button>
               </div>
+            ) : (
+              <p className="mt-4 text-gray-500">Text will appear here…</p>
             )}
           </div>
         </div>
